@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>正确地使用 Cloudflare 保护你的网站 | Note of bobo</title>
+    
+    
+        <meta name="keywords" content="正确地使用 Cloudflare 保护你的网站" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="今天看到某不愿透露姓名的雨落无声同学在群里提到自己的网站被轮，最后只好上 cf。 有感于 cf 确实是防日的好工具的同时，在这里强调一下很多时候会被（上了 cf 就感觉万事大吉的）小站长们忽略的一个问题：*map 大法。 按照规矩，说问题应该先给 PoC，但这玩法实在太普及，就简单说一下原理：  通过 nmap/zmap 之类的工具，扫描全网（如果能从网页确定网段那自然更棒），然后伪装 host">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正确地使用 Cloudflare 保护你的网站">
+<meta property="og:url" content="https://bobo.moe/post/cf-true/index.html">
+<meta property="og:site_name" content="Note of bobo">
+<meta property="og:description" content="今天看到某不愿透露姓名的雨落无声同学在群里提到自己的网站被轮，最后只好上 cf。 有感于 cf 确实是防日的好工具的同时，在这里强调一下很多时候会被（上了 cf 就感觉万事大吉的）小站长们忽略的一个问题：*map 大法。 按照规矩，说问题应该先给 PoC，但这玩法实在太普及，就简单说一下原理：  通过 nmap/zmap 之类的工具，扫描全网（如果能从网页确定网段那自然更棒），然后伪装 host">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-09T16:20:02.102Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正确地使用 Cloudflare 保护你的网站">
+<meta name="twitter:description" content="今天看到某不愿透露姓名的雨落无声同学在群里提到自己的网站被轮，最后只好上 cf。 有感于 cf 确实是防日的好工具的同时，在这里强调一下很多时候会被（上了 cf 就感觉万事大吉的）小站长们忽略的一个问题：*map 大法。 按照规矩，说问题应该先给 PoC，但这玩法实在太普及，就简单说一下原理：  通过 nmap/zmap 之类的工具，扫描全网（如果能从网页确定网段那自然更棒），然后伪装 host">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Note of bobo" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?1817e24cd627962885057360855fa395";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Note of bobo</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            手记
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            随想
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/vt-privacy/">关于 VirusTotal 隐私的几点讨论</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/post/zes-test/">Zemana Endpoint Security (ZES) 简单测评</a></li>  <li class="file"><a href="/post/zemana-white-book/">Zemana 非官方技术白皮书</a></li>  <li class="file"><a href="/post/move-to-hugo/">博客折腾记 (迁移到 Hugo 和 Gitment)</a></li>  <li class="file"><a href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a></li>  <li class="file"><a href="/post/ransom/">自制勒索有感 & 技术简析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            经验
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/post/cf-true/">正确地使用 Cloudflare 保护你的网站</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/post/index/">Welcome to Note of bobo</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title"><span>links</span></h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://qwq.moe/">蚊子酱</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ylws.me/">雨落无声</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-cf-true" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/经验/">经验</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/post/cf-true/">
+            <time datetime="2017-12-11T09:26:37.145Z" itemprop="datePublished">2017-12-11</time>
+        </a>
+    </div>
+
+
+                        
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/raw/master/source/_posts/cf-true.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/edit/master/source/_posts/cf-true.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/commits/master/source/_posts/cf-true.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            正确地使用 Cloudflare 保护你的网站
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>今天看到某不愿透露姓名的雨落无声同学在群里提到自己的网站被轮，最后只好上 cf。</p>
+<p>有感于 cf 确实是防日的好工具的同时，在这里强调一下很多时候会被（上了 cf 就感觉万事大吉的）小站长们忽略的一个问题：*map 大法。</p>
+<p>按照规矩，说问题应该先给 PoC，但这玩法实在太普及，就简单说一下原理：</p>
+<blockquote>
+<p>通过 nmap/zmap 之类的工具，扫描全网（如果能从网页确定网段那自然更棒），然后伪装 host 验证。</p>
+</blockquote>
+<p>这个玩意解决还是很简单的，只要做 ip 过滤就行了，以 nginx 为例：</p>
+<p>先准备好 ip 白名单</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载并处理 cf 的 ipv4 列表，并写入 / etc/nginx/cfv4.conf 文件 </span></span><br><span class="line">wget -O- https://www.cloudflare.com/ips-v4 |\</span><br><span class="line">sed -e <span class="string">"s/^/allow /"</span> -e <span class="string">'s/$/;/'</span> &gt; /etc/nginx/cfv4.conf</span><br><span class="line"><span class="comment"># 如有 v6 可执行，但是现在应该很少有人扫 v6 的就是了 </span></span><br><span class="line"><span class="comment"># wget -O- https://www.cloudflare.com/ips-v6 |\</span></span><br><span class="line"><span class="comment"># sed -e "s/^/allow /" -e 's/$/;/' &gt; /etc/nginx/cfv6.conf</span></span><br></pre></td></tr></table></figure>
+<p>然后在你的 vhost 配置中加入</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">include</span> cfv4.conf;</span><br><span class="line"><span class="comment"># 如果有 v6</span></span><br><span class="line"><span class="comment"># include cfv6.conf;</span></span><br><span class="line"><span class="attribute">deny</span> all;</span><br></pre></td></tr></table></figure>
+<p>这样基本的安全操作（之一）就完成啦~</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/post/index/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Welcome to Note of bobo
+                
+            </div>
+        </a>
+    
+    
+        <a href="/post/zemana-white-book/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Zemana 非官方技术白皮书</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            bobo liu &copy; 2018 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://bobo.moe/post/cf-true/';
+        
+        this.page.identifier = 'cf-true';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'bonote' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

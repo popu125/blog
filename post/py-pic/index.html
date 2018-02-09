@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>记一次对于 Py 图像库的蛋疼应用 | Note of bobo</title>
+    
+    
+        <meta name="keywords" content="记一次对于 Py 图像库的蛋疼应用" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="起因想帮同学批量生成个门票图片，便于打印（他们竟然在用 Acrobat 编辑 pdf 然后打印，当然去年他们竟然用 PS 编辑，相对来讲倒是好多了。。。） 折腾路上 - 预处理我第一反应当然是用 Py 来做这种东西，毕竟轮子比较多。 票务上的同学给了我一个坑爹的 xls，数据格式类似（括号内为栗子）：座区（QWQ）| 票号（2333）| 座位信息（QWQ/01/01）。果断上 Navicat 大法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次对于 Py 图像库的蛋疼应用">
+<meta property="og:url" content="https://bobo.moe/post/py-pic/index.html">
+<meta property="og:site_name" content="Note of bobo">
+<meta property="og:description" content="起因想帮同学批量生成个门票图片，便于打印（他们竟然在用 Acrobat 编辑 pdf 然后打印，当然去年他们竟然用 PS 编辑，相对来讲倒是好多了。。。） 折腾路上 - 预处理我第一反应当然是用 Py 来做这种东西，毕竟轮子比较多。 票务上的同学给了我一个坑爹的 xls，数据格式类似（括号内为栗子）：座区（QWQ）| 票号（2333）| 座位信息（QWQ/01/01）。果断上 Navicat 大法">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-09T16:19:22.738Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一次对于 Py 图像库的蛋疼应用">
+<meta name="twitter:description" content="起因想帮同学批量生成个门票图片，便于打印（他们竟然在用 Acrobat 编辑 pdf 然后打印，当然去年他们竟然用 PS 编辑，相对来讲倒是好多了。。。） 折腾路上 - 预处理我第一反应当然是用 Py 来做这种东西，毕竟轮子比较多。 票务上的同学给了我一个坑爹的 xls，数据格式类似（括号内为栗子）：座区（QWQ）| 票号（2333）| 座位信息（QWQ/01/01）。果断上 Navicat 大法">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Note of bobo" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?1817e24cd627962885057360855fa395";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Note of bobo</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            手记
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            随想
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/vt-privacy/">关于 VirusTotal 隐私的几点讨论</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/post/zes-test/">Zemana Endpoint Security (ZES) 简单测评</a></li>  <li class="file"><a href="/post/zemana-white-book/">Zemana 非官方技术白皮书</a></li>  <li class="file"><a href="/post/move-to-hugo/">博客折腾记 (迁移到 Hugo 和 Gitment)</a></li>  <li class="file active"><a href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a></li>  <li class="file"><a href="/post/ransom/">自制勒索有感 & 技术简析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经验
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/cf-true/">正确地使用 Cloudflare 保护你的网站</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/post/index/">Welcome to Note of bobo</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title"><span>links</span></h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://qwq.moe/">蚊子酱</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ylws.me/">雨落无声</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-py-pic" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/手记/">手记</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/post/py-pic/">
+            <time datetime="2017-10-04T13:18:16.772Z" itemprop="datePublished">2017-10-04</time>
+        </a>
+    </div>
+
+
+                        
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/raw/master/source/_posts/py-pic.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/edit/master/source/_posts/py-pic.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/commits/master/source/_posts/py-pic.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            记一次对于 Py 图像库的蛋疼应用
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>想帮同学批量生成个门票图片，便于打印（他们竟然在用 Acrobat 编辑 pdf 然后打印，当然去年他们竟然用 PS 编辑，相对来讲倒是好多了。。。）</p>
+<h2 id="折腾路上-预处理"><a href="#折腾路上-预处理" class="headerlink" title="折腾路上 - 预处理"></a>折腾路上 - 预处理</h2><p>我第一反应当然是用 Py 来做这种东西，毕竟轮子比较多。</p>
+<p>票务上的同学给了我一个坑爹的 xls，数据格式类似（括号内为栗子）：<code>座区（QWQ）| 票号（2333）| 座位信息（QWQ/01/01）</code>。<br>果断上 Navicat 大法导入一个 sqlite 文件，提取的时候直接用 SQL 语句即可。</p>
+<h2 id="大坑一-图像处理"><a href="#大坑一-图像处理" class="headerlink" title="大坑一 - 图像处理"></a>大坑一 - 图像处理</h2><p>然后就是图像库这一最重要轮子的问题了，我所知的 py 图像库有 PIL（Pillow）和 Wand，看不少人都挺推崇 PIL 的，果断上之，而且 <a href="http://pillow.readthedocs.io/en/latest/" target="_blank" rel="noopener">Pillow 的文档</a> 也相当的全，是一个品质之选。</p>
+<p>但是我最后还是选择了 Wand，这是因为在一篇文章中看到有人说似乎 Pillow 的 font_size 无法正常使用。我在开发的时候用 pdf 中的字号填了上去，发现字很小，于是听信之。（事实证明并没有这回事</p>
+<p>然而在换成 Wand 之后，用同样的字号值依旧如此，，，坑了</p>
+<p>附：测试时所用代码<br>Pillow（参考自<a href="http://pillow.readthedocs.io/en/latest/reference/ImageDraw.html" target="_blank" rel="noopener">Pillow 的 doc</a>）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image, ImageDraw</span><br><span class="line"></span><br><span class="line">base = Image.open(&apos;4.jpg&apos;)</span><br><span class="line">txt = Image.new(&apos;RGBA&apos;, base.size, (255,255,255,0))</span><br><span class="line">fnt = ImageFont.truetype(&apos;./Calibri_Light.ttf&apos;, 48.0)</span><br><span class="line">d = ImageDraw.Draw(txt)</span><br><span class="line"></span><br><span class="line">d.text((10,10), &apos;WTF&apos;, font=fnt, fill=(255,255,255,255))</span><br><span class="line"></span><br><span class="line">out = Image.alpha_composite(base, txt)</span><br><span class="line">out.show()</span><br></pre></td></tr></table></figure></p>
+<p>Wand（参考<a href="http://docs.wand-py.org/en/0.4.2/guide/drawing.html" target="_blank" rel="noopener">Wand 的 doc-Drawing</a>）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from wand.image import Image</span><br><span class="line">from wand.display import display</span><br><span class="line">from wand.drawing import Drawing</span><br><span class="line">from wand.color import Color</span><br><span class="line">from wand.font import Font</span><br><span class="line"></span><br><span class="line">img = Image(filename=&apos;4.jpg&apos;)</span><br><span class="line">with Drawing() as draw:</span><br><span class="line">	draw.font = &apos;./Calibri_Light.ttf&apos;</span><br><span class="line">	draw.font_size = 48.0</span><br><span class="line">	draw.fill_color = Color(&apos;White&apos;)</span><br><span class="line">	draw.text(10, 10, &apos;WTF&apos;)</span><br><span class="line">	draw(img)</span><br><span class="line">img.save(&apos;text.jpg&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>后来啊，我发现。。。调大字号字确实能变大，只不过从 pdf 中找出来的字号大小不合用。。。（喷水. jpg</p>
+<p>而且因为已经把基于 PIL 的代码重写成了基于 Wand 的代码，干脆就这样用下去吧。</p>
+<h2 id="大坑二-Acrobat-导出图片分辨率"><a href="#大坑二-Acrobat-导出图片分辨率" class="headerlink" title="大坑二 - Acrobat 导出图片分辨率"></a>大坑二 - Acrobat 导出图片分辨率</h2><p>本来在用一张测试的时候一切都好好地，但当我开始试图用多张模板进行工作时（他们给了我五个版），坑就来了。每一张图上的字竟然不一样大，而且字所在位置也不同。仔细查看之，发现各图分辨率也是不同，心有所感，打开 Acrobat，细细检查导出选项，赫然见一“分辨率：自动选择”（这 tm 坑爹呢）</p>
+<p>于是挨张重新生成之。</p>
+<h2 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h2><p>坑已填好了，bobo 就用实际代码说话了：</p>
+<p>模块（tkimg.py）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">from wand.image import Image</span><br><span class="line">from wand.display import display</span><br><span class="line">from wand.drawing import Drawing</span><br><span class="line">from wand.color import Color</span><br><span class="line">from wand.font import Font</span><br><span class="line"></span><br><span class="line">def maketk(picname, areainfo, face):</span><br><span class="line">    img = Image(filename=picname)</span><br><span class="line"></span><br><span class="line">    if face == &apos;front&apos;:</span><br><span class="line">        for i in (0,1,2):</span><br><span class="line">            plus = i * 2350</span><br><span class="line">            with Drawing() as draw:</span><br><span class="line">                draw.font = &apos;./Calibri_Light.ttf&apos;</span><br><span class="line">                draw.font_size = 288.0</span><br><span class="line">                draw.fill_color = Color(&apos;White&apos;)</span><br><span class="line">                draw.text(160, 2115+plus, areainfo[i][0])</span><br><span class="line">                draw.text(1859, 2115+plus, areainfo[i][1])</span><br><span class="line">                draw.text(2698, 2115+plus, areainfo[i][2])</span><br><span class="line">                draw.text(3518, 2115+plus, areainfo[i][3])</span><br><span class="line">                draw.draw(img)</span><br><span class="line">    elif face == &apos;back&apos;:</span><br><span class="line">        for i in (0,1,2):</span><br><span class="line">            plus = i * 2350</span><br><span class="line">            with Drawing() as draw:</span><br><span class="line">                draw.font = &apos;./Calibri_Light.ttf&apos;</span><br><span class="line">                draw.font_size = 160.0</span><br><span class="line">                draw.fill_color = Color(&apos;White&apos;)</span><br><span class="line">                draw.text(4349, 2180+plus, areainfo[i][4])</span><br><span class="line">                draw.draw(img)</span><br><span class="line"></span><br><span class="line">    imgname = &quot;%s-%s%s%s-%s%s%s.jpg&quot; % (face, areainfo[0][0], areainfo[0][2], areainfo[0][3], areainfo[2][0], areainfo[2][2], areainfo[2][3])</span><br><span class="line">    img.save(filename=imgname)</span><br></pre></td></tr></table></figure>
+<p>数据处理（app.py）：<br>太懒略之，回头有空再翻出来补。</p>
+<p>May 11, 2016</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/post/vt-privacy/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    关于 VirusTotal 隐私的几点讨论
+                
+            </div>
+        </a>
+    
+    
+        <a href="/post/move-to-hugo/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">博客折腾记 (迁移到 Hugo 和 Gitment)</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            bobo liu &copy; 2018 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://bobo.moe/post/py-pic/';
+        
+        this.page.identifier = 'py-pic';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'bonote' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Zemana Endpoint Security (ZES) 简单测评 | Note of bobo</title>
+    
+    
+        <meta name="keywords" content="Zemana Endpoint Security (ZES) 简单测评" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="嘛，之前就看到了 ZES 出来了，但是一直没有下手。最新心情不佳，于是去忽悠了一下客服，得以入手 ZES 一年试用授权一枚，尽管应该没人会用，但还是试用并且记录一下，要不就浪费了授权了是吧。。。 波折 客服给我发的是个错误的（而且过期很久的）下载链接，我给他发了三封邮件才拿到正确的。（恰逢周末，人家放假也没啥问题对吧。。。） ZES 控制端要求 64 位服务器系统，我的辣鸡电脑要在 VM 里带动这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zemana Endpoint Security (ZES) 简单测评">
+<meta property="og:url" content="https://bobo.moe/post/zes-test/index.html">
+<meta property="og:site_name" content="Note of bobo">
+<meta property="og:description" content="嘛，之前就看到了 ZES 出来了，但是一直没有下手。最新心情不佳，于是去忽悠了一下客服，得以入手 ZES 一年试用授权一枚，尽管应该没人会用，但还是试用并且记录一下，要不就浪费了授权了是吧。。。 波折 客服给我发的是个错误的（而且过期很久的）下载链接，我给他发了三封邮件才拿到正确的。（恰逢周末，人家放假也没啥问题对吧。。。） ZES 控制端要求 64 位服务器系统，我的辣鸡电脑要在 VM 里带动这">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/7552030/32311336-0e91bae2-bfd3-11e7-9121-8cfe781376c3.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/7552030/32311338-0ef6879c-bfd3-11e7-8922-eb0676bce9f6.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/7552030/32311339-0f317d52-bfd3-11e7-935f-f3f28583439f.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/7552030/32311324-0c81b48c-bfd3-11e7-97a8-8f53cf1c5f56.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/7552030/32319961-27b85016-bff7-11e7-81d2-4bd2b694b085.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/7552030/32311335-0e619a4c-bfd3-11e7-8365-ec5565cd447d.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/7552030/32319743-83307636-bff6-11e7-8967-fdc2620ad8a2.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/7552030/32319745-841dc22e-bff6-11e7-82c5-bf6e4874108e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/7552030/32319744-83abc5b6-bff6-11e7-8fa8-e0f7c2da99d2.png">
+<meta property="og:updated_time" content="2018-02-09T16:13:14.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zemana Endpoint Security (ZES) 简单测评">
+<meta name="twitter:description" content="嘛，之前就看到了 ZES 出来了，但是一直没有下手。最新心情不佳，于是去忽悠了一下客服，得以入手 ZES 一年试用授权一枚，尽管应该没人会用，但还是试用并且记录一下，要不就浪费了授权了是吧。。。 波折 客服给我发的是个错误的（而且过期很久的）下载链接，我给他发了三封邮件才拿到正确的。（恰逢周末，人家放假也没啥问题对吧。。。） ZES 控制端要求 64 位服务器系统，我的辣鸡电脑要在 VM 里带动这">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/7552030/32311336-0e91bae2-bfd3-11e7-9121-8cfe781376c3.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Note of bobo" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?1817e24cd627962885057360855fa395";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Note of bobo</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            手记
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            随想
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/vt-privacy/">关于 VirusTotal 隐私的几点讨论</a></li>  </ul> 
+                    </li> 
+                     <li class="file active"><a href="/post/zes-test/">Zemana Endpoint Security (ZES) 简单测评</a></li>  <li class="file"><a href="/post/zemana-white-book/">Zemana 非官方技术白皮书</a></li>  <li class="file"><a href="/post/move-to-hugo/">博客折腾记 (迁移到 Hugo 和 Gitment)</a></li>  <li class="file"><a href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a></li>  <li class="file"><a href="/post/ransom/">自制勒索有感 & 技术简析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经验
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/cf-true/">正确地使用 Cloudflare 保护你的网站</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/post/index/">Welcome to Note of bobo</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title"><span>links</span></h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://qwq.moe/">蚊子酱</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ylws.me/">雨落无声</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-zes-test" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/手记/">手记</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/post/zes-test/">
+            <time datetime="2017-10-30T09:49:33.376Z" itemprop="datePublished">2017-10-30</time>
+        </a>
+    </div>
+
+
+                        
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/raw/master/source/_posts/zes-test.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/edit/master/source/_posts/zes-test.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/commits/master/source/_posts/zes-test.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Zemana Endpoint Security (ZES) 简单测评
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>嘛，之前就看到了 ZES 出来了，但是一直没有下手。最新心情不佳，于是去忽悠了一下客服，得以入手 ZES 一年试用授权一枚，尽管应该没人会用，但还是试用并且记录一下，要不就浪费了授权了是吧。。。</p>
+<h2 id="波折"><a href="#波折" class="headerlink" title="波折"></a>波折</h2><ul>
+<li>客服给我发的是个错误的（而且过期很久的）下载链接，我给他发了三封邮件才拿到正确的。（恰逢周末，人家放假也没啥问题对吧。。。）</li>
+<li>ZES 控制端要求 64 位服务器系统，我的辣鸡电脑要在 VM 里带动这玩意着实有点困难（主要是内存只有 4G，严重不足），而且我还需要一个测试终端用的虚拟机，性能就更不足了，最后只能一卡一卡地搞。。。</li>
+</ul>
+<hr>
+<h2 id="正经测试时间"><a href="#正经测试时间" class="headerlink" title="正经测试时间"></a>正经测试时间</h2><h3 id="安装主控端"><a href="#安装主控端" class="headerlink" title="安装主控端"></a>安装主控端</h3><p>直接双击安装，安装界面省略（懒得截图了），不过看起来（似乎）挺正式的。</p>
+<p>最后一步需要下载所有安装包，耗时极长，下载完之后还要加一个扩展名为 <code>.cfg</code> 的配置文件再压缩起来，内容如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"ControlCenterAddress"</span>: <span class="string">"127.0.0.1:55555"</span>,</span><br><span class="line">  <span class="attr">"Role"</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就 4 行，但是却食用了我大量的硬盘 IO（20MB/s），花了半个小时。。。令人极度怀疑是不是实现逻辑有问题。</p>
+<h3 id="主控-web-管理"><a href="#主控-web-管理" class="headerlink" title="主控 web 管理"></a>主控 web 管理</h3><p>跟着客服提供的安装教程走，很快就到了打开浏览器看主控台的步骤，想想还有点小激动（雾），打开浏览器看一下：</p>
+<p><img src="https://user-images.githubusercontent.com/7552030/32311336-0e91bae2-bfd3-11e7-9121-8cfe781376c3.png" alt="18"></p>
+<p><img src="https://user-images.githubusercontent.com/7552030/32311338-0ef6879c-bfd3-11e7-8922-eb0676bce9f6.png" alt="19"></p>
+<p><img src="https://user-images.githubusercontent.com/7552030/32311339-0f317d52-bfd3-11e7-935f-f3f28583439f.png" alt="20"></p>
+<p>界面还是挺简洁的，扁平化做的也不错。这是我安装了终端之后的截图，但还是看不到终端上线，不知是不是我配置有问题。</p>
+<h3 id="终端部署"><a href="#终端部署" class="headerlink" title="终端部署"></a>终端部署</h3><p>继续跟着教程走，在 web 面板点击下载。咦？怎么卡住了？虚拟机都卡死了？打开任务管理器一看：</p>
+<p><img src="https://user-images.githubusercontent.com/7552030/32311324-0c81b48c-bfd3-11e7-97a8-8f53cf1c5f56.png" alt="7"></p>
+<p>Emmmmm… 这文件都是现成的，怎么还需要那么大的读写的？这 web 服务器有毒吧？</p>
+<p>终于开始下载了。。。</p>
+<p><img src="https://user-images.githubusercontent.com/7552030/32319961-27b85016-bff7-11e7-81d2-4bd2b694b085.png" alt="default"></p>
+<p>内网你给我搞出这个速度？这 web 服务器有毒吧？</p>
+<h3 id="终端体验"><a href="#终端体验" class="headerlink" title="终端体验"></a>终端体验</h3><p>受不了卡出屎的感觉，直接从 IIS 的目录底下把安装包拖了出来，完美解决问题，安装一切顺利。这企业版的界面不知道比个人版高到哪里去了，Zemana 这么不在意个人用户的么？</p>
+<p><img src="https://user-images.githubusercontent.com/7552030/32311335-0e619a4c-bfd3-11e7-8365-ec5565cd447d.png" alt="17"></p>
+<p>作为一个老玩家，不打开目录仔细看看不就太过浪费了，让我们打开 <code>Signatures</code> 目录看看：</p>
+<p><img src="https://user-images.githubusercontent.com/7552030/32319743-83307636-bff6-11e7-8967-fdc2620ad8a2.png" alt="default"></p>
+<p>等等，这目录名好像不太对，，，让我打开看看</p>
+<p>BD 库：</p>
+<p><img src="https://user-images.githubusercontent.com/7552030/32319745-841dc22e-bff6-11e7-82c5-bf6e4874108e.png" alt="bdv"></p>
+<p>AVC：</p>
+<p><img src="https://user-images.githubusercontent.com/7552030/32319744-83abc5b6-bff6-11e7-8fa8-e0f7c2da99d2.png" alt="avc"></p>
+<p>夭寿啦，Zemana 也加入 BD 系啦！连 AVC 都买啦！</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本着 “作文应当有头有尾” 的原则，姑且写一个小结。</p>
+<p>很明显 ZES 做的还是。。。很不错的（良心？不存在的），只是部分（很多）细节还需要进行打磨。</p>
+<p>最后，ZAL 画风什么时候能现代化啊，好蛋疼。。。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/post/zemana-white-book/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Zemana 非官方技术白皮书
+                
+            </div>
+        </a>
+    
+    
+        <a href="/post/vt-privacy/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">关于 VirusTotal 隐私的几点讨论</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            bobo liu &copy; 2018 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://bobo.moe/post/zes-test/';
+        
+        this.page.identifier = 'zes-test';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'bonote' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

