@@ -12,7 +12,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://bobiji.com
+url: https://bobo.moe
 root: /
 permalink: post/:title/
 permalink_defaults:
@@ -102,4 +102,8 @@ theme: Wikitten
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  message: blog update
+  repo: https://popu125@github.com/popu125/blog.git
+  branch: gh-pages
+  
