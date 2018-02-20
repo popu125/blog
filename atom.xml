@@ -64,30 +64,6 @@
   </entry>
   
   <entry>
-    <title>Zemana 非官方技术白皮书</title>
-    <link href="https://bobo.moe/post/zemana-white-book/"/>
-    <id>https://bobo.moe/post/zemana-white-book/</id>
-    <published>2017-11-01T16:00:00.000Z</published>
-    <updated>2018-02-20T12:24:00.601Z</updated>
-    
-    <content type="html"><![CDATA[<p>Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。</p><h2 id="Pandora-Cloud-Sandbox"><a href="#Pandora-Cloud-Sandbox" class="headerlink" title="Pandora Cloud-Sandbox"></a>Pandora Cloud-Sandbox</h2><p>这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍：</p><p>官方产品介绍手册（ZAL）</p><p><a href="http://dl9.zemana.com/Website_Media/Zemana%20AntiLogger%20brochure.pdf" target="_blank" rel="noopener">http://dl9.zemana.com/Website_Media/Zemana%20AntiLogger%20brochure.pdf</a></p><p>原文摘录如下：</p><blockquote><p>Pandora Sandbox<br>Each unknown file will be analyzed carefully in the cloud with Pandora<br>Technology before they execute on your PC. By using this technology on<br>your PC, any zero-day malware that wants to attack has no power!</p></blockquote><p>大意总结：</p><blockquote><p>当使用 Pandora 技术时，每一个未知的文件都会在运行前在云端被仔细分析</p></blockquote><p>官网提供的反勒索测试报告</p><p><a href="https://www.mrg-effitas.com/wp-content/uploads/2016/07/Zemana_ransomware_detection.pdf" target="_blank" rel="noopener">https://www.mrg-effitas.com/wp-content/uploads/2016/07/Zemana_ransomware_detection.pdf</a></p><p>原文摘录如下：</p><blockquote><p>Pandora works as a combination of cloud reputation database (blocking previously unknown files), and a cloud sandbox, where suspicious samples are sent to the cloud, and analyzed there. If a sample is detected as malicious, all Zemana users (even where Pandora is turned off) are protected in the future against that specific threat.</p></blockquote><p>大意总结：</p><blockquote><p>Pandora 是一个云信誉库和云沙盘的结合，可疑的样本将被发送到云端进行分析。如果样本有害，所有的 Zemana 用户将受到保护。</p></blockquote><p>结论：就是个没啥新意的云，名字起得不错</p><h2 id="扫描器的本质"><a href="#扫描器的本质" class="headerlink" title="扫描器的本质"></a>扫描器的本质</h2><p>曾有人问我 Zemana 的主防怎么样，我不太确定如何回答，因为它根本没有主防。官方对自己的定位很明确，在语言文件中可以看到：</p><blockquote><p>%s is a second opinion cloud-based malware scanner</p></blockquote><p>正如官方所言，无论是 ZAM 还是 ZAL，其本质都是一个“基于云的作为第二选择的病毒扫描器”。</p><h2 id="ID-Theft-Protection"><a href="#ID-Theft-Protection" class="headerlink" title="ID Theft Protection"></a>ID Theft Protection</h2><p>这个原翻译译作 “身份保护”，我称作“信息保护” 的东西，乍一看也很高大上，但实际上也不是什么新东西，就像 Pandora 一样。</p><p>根据 ZAL 产品文档的描述，这个组件被分成三个功能部分：</p><blockquote><ul><li>Secure SSL</li><li>Keystroke Logging Protection</li><li>System Intrusion Protection</li></ul></blockquote><p>前两个都不是很有趣，而最后一个 <code>System Intrusion Protection</code> 则看起来有点意思。在 ZAL 产品文档中，可以看到：</p><blockquote><p>The AntiLogger’s System Defense module secures the very heart of your PC in a future proof way: it detects malicious attempts based purely upon their behavior, regardless of whether or not the malware attacking you has been identified, isolated, analyzed and your anti­virus product updated.</p></blockquote><p>其中对于系统防护模块的表述给人有种基于行为判断的主防的感觉，但实际使用过程中并没有让人感觉到明显的行为主防痕迹，目前有待进一步的测试。</p><h2 id="剩下的"><a href="#剩下的" class="headerlink" title="剩下的"></a>剩下的</h2><p>什么？你还以为会有剩下的？要是还有剩下的内容的话，我想 Zemana 就会自己出白皮书大肆吹嘘了吧。。。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。&lt;/p&gt;
-&lt;h2 id=&quot;Pandora-Cloud-Sandbox&quot;&gt;&lt;a href=&quot;#Pandora-Clo
-      
-    
-    </summary>
-    
-      <category term="手记" scheme="https://bobo.moe/categories/%E6%89%8B%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>Zemana Endpoint Security (ZES) 简单测评</title>
     <link href="https://bobo.moe/post/zes-test/"/>
     <id>https://bobo.moe/post/zes-test/</id>
@@ -102,6 +78,30 @@
       
         &lt;p&gt;嘛，之前就看到了 ZES 出来了，但是一直没有下手。最新心情不佳，于是去忽悠了一下客服，得以入手 ZES 一年试用授权一枚，尽管应该没人会用，但还是试用并且记录一下，要不就浪费了授权了是吧。。。&lt;/p&gt;
 &lt;h2 id=&quot;波折&quot;&gt;&lt;a href=&quot;#波折&quot; class=&quot;he
+      
+    
+    </summary>
+    
+      <category term="手记" scheme="https://bobo.moe/categories/%E6%89%8B%E8%AE%B0/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Zemana 非官方技术白皮书</title>
+    <link href="https://bobo.moe/post/zemana-white-book/"/>
+    <id>https://bobo.moe/post/zemana-white-book/</id>
+    <published>2017-11-01T16:00:00.000Z</published>
+    <updated>2018-02-20T12:24:00.601Z</updated>
+    
+    <content type="html"><![CDATA[<p>Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。</p><h2 id="Pandora-Cloud-Sandbox"><a href="#Pandora-Cloud-Sandbox" class="headerlink" title="Pandora Cloud-Sandbox"></a>Pandora Cloud-Sandbox</h2><p>这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍：</p><p>官方产品介绍手册（ZAL）</p><p><a href="http://dl9.zemana.com/Website_Media/Zemana%20AntiLogger%20brochure.pdf" target="_blank" rel="noopener">http://dl9.zemana.com/Website_Media/Zemana%20AntiLogger%20brochure.pdf</a></p><p>原文摘录如下：</p><blockquote><p>Pandora Sandbox<br>Each unknown file will be analyzed carefully in the cloud with Pandora<br>Technology before they execute on your PC. By using this technology on<br>your PC, any zero-day malware that wants to attack has no power!</p></blockquote><p>大意总结：</p><blockquote><p>当使用 Pandora 技术时，每一个未知的文件都会在运行前在云端被仔细分析</p></blockquote><p>官网提供的反勒索测试报告</p><p><a href="https://www.mrg-effitas.com/wp-content/uploads/2016/07/Zemana_ransomware_detection.pdf" target="_blank" rel="noopener">https://www.mrg-effitas.com/wp-content/uploads/2016/07/Zemana_ransomware_detection.pdf</a></p><p>原文摘录如下：</p><blockquote><p>Pandora works as a combination of cloud reputation database (blocking previously unknown files), and a cloud sandbox, where suspicious samples are sent to the cloud, and analyzed there. If a sample is detected as malicious, all Zemana users (even where Pandora is turned off) are protected in the future against that specific threat.</p></blockquote><p>大意总结：</p><blockquote><p>Pandora 是一个云信誉库和云沙盘的结合，可疑的样本将被发送到云端进行分析。如果样本有害，所有的 Zemana 用户将受到保护。</p></blockquote><p>结论：就是个没啥新意的云，名字起得不错</p><h2 id="扫描器的本质"><a href="#扫描器的本质" class="headerlink" title="扫描器的本质"></a>扫描器的本质</h2><p>曾有人问我 Zemana 的主防怎么样，我不太确定如何回答，因为它根本没有主防。官方对自己的定位很明确，在语言文件中可以看到：</p><blockquote><p>%s is a second opinion cloud-based malware scanner</p></blockquote><p>正如官方所言，无论是 ZAM 还是 ZAL，其本质都是一个“基于云的作为第二选择的病毒扫描器”。</p><h2 id="ID-Theft-Protection"><a href="#ID-Theft-Protection" class="headerlink" title="ID Theft Protection"></a>ID Theft Protection</h2><p>这个原翻译译作 “身份保护”，我称作“信息保护” 的东西，乍一看也很高大上，但实际上也不是什么新东西，就像 Pandora 一样。</p><p>根据 ZAL 产品文档的描述，这个组件被分成三个功能部分：</p><blockquote><ul><li>Secure SSL</li><li>Keystroke Logging Protection</li><li>System Intrusion Protection</li></ul></blockquote><p>前两个都不是很有趣，而最后一个 <code>System Intrusion Protection</code> 则看起来有点意思。在 ZAL 产品文档中，可以看到：</p><blockquote><p>The AntiLogger’s System Defense module secures the very heart of your PC in a future proof way: it detects malicious attempts based purely upon their behavior, regardless of whether or not the malware attacking you has been identified, isolated, analyzed and your anti­virus product updated.</p></blockquote><p>其中对于系统防护模块的表述给人有种基于行为判断的主防的感觉，但实际使用过程中并没有让人感觉到明显的行为主防痕迹，目前有待进一步的测试。</p><h2 id="剩下的"><a href="#剩下的" class="headerlink" title="剩下的"></a>剩下的</h2><p>什么？你还以为会有剩下的？要是还有剩下的内容的话，我想 Zemana 就会自己出白皮书大肆吹嘘了吧。。。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。&lt;/p&gt;
+&lt;h2 id=&quot;Pandora-Cloud-Sandbox&quot;&gt;&lt;a href=&quot;#Pandora-Clo
       
     
     </summary>
