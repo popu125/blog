@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bobo.moe/post/miss-bd/</loc>
+    
+    <lastmod>2018-05-21T09:08:33.377Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bobo.moe/post/vt-privacy/</loc>
     
     <lastmod>2018-05-21T08:50:12.633Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>https://bobo.moe/post/move-to-hugo/</loc>
     
     <lastmod>2018-05-21T08:48:08.015Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bobo.moe/post/miss-bd/</loc>
-    
-    <lastmod>2018-05-21T08:47:51.292Z</lastmod>
     
   </url>
   
