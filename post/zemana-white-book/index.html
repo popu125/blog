@@ -9,17 +9,17 @@
         <meta name="keywords" content="Zemana 非官方技术白皮书" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。 Pandora Cloud-Sandbox这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍： 官方产品介绍手册（ZAL） http://dl9.zemana.com/W">
+    <meta name="description" content="Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。 Pandora Cloud-Sandbox 这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍：  官方产品介绍手册（ZAL） http://dl9.zemana.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zemana 非官方技术白皮书">
 <meta property="og:url" content="https://bobo.moe/post/zemana-white-book/index.html">
 <meta property="og:site_name" content="Note of bobo">
-<meta property="og:description" content="Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。 Pandora Cloud-Sandbox这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍： 官方产品介绍手册（ZAL） http://dl9.zemana.com/W">
+<meta property="og:description" content="Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。 Pandora Cloud-Sandbox 这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍：  官方产品介绍手册（ZAL） http://dl9.zemana.com">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-02-20T12:24:00.601Z">
+<meta property="og:updated_time" content="2018-05-21T08:49:31.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zemana 非官方技术白皮书">
-<meta name="twitter:description" content="Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。 Pandora Cloud-Sandbox这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍： 官方产品介绍手册（ZAL） http://dl9.zemana.com/W">
+<meta name="twitter:description" content="Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。 Pandora Cloud-Sandbox 这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍：  官方产品介绍手册（ZAL） http://dl9.zemana.com">
     
 
     
@@ -27,7 +27,7 @@
     
 
     
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/favicon.ico" />
     
 
     <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
@@ -47,19 +47,11 @@
     
     
     
-        <script>
-var _hmt = _hmt || [];
-(function() {
-    var hm = document.createElement("script");
-    hm.src = "//hm.baidu.com/hm.js?1817e24cd627962885057360855fa395";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();
-</script>
+
 
     
-
-
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
 </head>
 
 <body>
@@ -78,6 +70,16 @@ var _hmt = _hmt || [];
                     <a class="main-nav-link" href="/about">关于</a>
                 
             </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://www.gravatar.com/avatar/3090d6e8e88c88e82e916e0f20457ec9" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
             
             <div id="search-form-wrap">
 
@@ -140,6 +142,65 @@ var _hmt = _hmt || [];
 
         <div class="outer">
             
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://www.gravatar.com/avatar/3090d6e8e88c88e82e916e0f20457ec9?s=128" />
+            <h2 id="name">bobo liu</h2>
+            <h3 id="title">A simple boy.</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Everywhere</span>
+            <a id="follow" target="_blank" href="https://github.com/popu125/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                9
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                0
+                <span>tag</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/popu125/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="stack-overflow" class=tooltip>
+                            <i class="fa fa-stack-overflow"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="codepen" class=tooltip>
+                            <i class="fa fa-codepen"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
             
                 <aside id="sidebar">
    
@@ -162,16 +223,7 @@ var _hmt = _hmt || [];
                             &nbsp;
                             手记
                         </a>
-                         <ul class="unstyled" id="tree" > 
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            随想
-                        </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/vt-privacy/">关于 VirusTotal 隐私的几点讨论</a></li>  </ul> 
-                    </li> 
-                     <li class="file"><a href="/post/move-to-hugo/">博客折腾记 (迁移到 Hugo 和 Gitment)</a></li>  <li class="file"><a href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a></li>  <li class="file"><a href="/post/ransom/">自制勒索有感 & 技术简析</a></li>  <li class="file"><a href="/post/zes-test/">Zemana Endpoint Security (ZES) 简单测评</a></li>  <li class="file active"><a href="/post/zemana-white-book/">Zemana 非官方技术白皮书</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/move-to-hugo/">博客折腾记 (迁移到 Hugo 和 Gitment)</a></li>  <li class="file"><a href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a></li>  <li class="file"><a href="/post/vt-privacy/">关于 VirusTotal 隐私的几点讨论</a></li>  <li class="file"><a href="/post/ransom/">自制勒索有感 & 技术简析</a></li>  <li class="file active"><a href="/post/zemana-white-book/">Zemana 非官方技术白皮书</a></li>  <li class="file"><a href="/post/zes-test/">Zemana Endpoint Security (ZES) 简单测评</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -181,6 +233,15 @@ var _hmt = _hmt || [];
                             经验
                         </a>
                          <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/cf-true/">正确地使用 Cloudflare 保护你的网站</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            随感
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/miss-bd/">念念不忘，未见回响。-- 悼 BD</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/post/index/">Welcome to Note of bobo</a></li>  </ul> 
     </div>
@@ -257,21 +318,12 @@ var _hmt = _hmt || [];
             <ul>
                 
                     <li>
-                        <a class="link" href="https://qwq.moe/" title="一位大佬，真正的大佬">蚊子酱</a>
-                    </li>
-                
-                    <li>
-                        <a class="link" href="https://ylws.me/" title="望你在喝茶的美帝之路上不孤单">雨落无声</a>
-                    </li>
-                
-                    <li>
-                        <a class="link" href="https://benzi.moe/" title="Undefined.">Tomato</a>
+                        <a class="link" href="https://bobo.moe" title="A simple boy.">bobo</a>
                     </li>
                 
             </ul>
         </div>
     </div>
-
 
     
     <div id="toTop" class="fa fa-angle-up"></div>
@@ -300,6 +352,10 @@ var _hmt = _hmt || [];
     </div>
 
 
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
                         
                             <div class="article-meta-button">
                                 <a href='https://github.com/popu125/blog/raw/master/source/_posts/zemana-white-book.md'> Source </a>
@@ -330,35 +386,35 @@ var _hmt = _hmt || [];
         
         
             <p>Zemana 并没有提供官方的技术文档共下载（可能是因为根本拿不上台面吧），这里通过它提供的其他文档中透露出的信息，结合实际使用体验，做出对于其使用技术的解析。</p>
-<h2 id="Pandora-Cloud-Sandbox"><a href="#Pandora-Cloud-Sandbox" class="headerlink" title="Pandora Cloud-Sandbox"></a>Pandora Cloud-Sandbox</h2><p>这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍：</p>
-<p>官方产品介绍手册（ZAL）</p>
+<h2 id="Pandora-Cloud-Sandbox"><a href="#Pandora-Cloud-Sandbox" class="headerlink" title="Pandora Cloud-Sandbox"></a>Pandora Cloud-Sandbox</h2><p > 这个名字可以说是 Zemana 所有技术中名字最神秘也最令人难以理解的了，关于其本质的分析我曾在卡饭发布，这里再说一遍：</p>
+<p > 官方产品介绍手册（ZAL）</p>
 <p><a href="http://dl9.zemana.com/Website_Media/Zemana%20AntiLogger%20brochure.pdf" target="_blank" rel="noopener">http://dl9.zemana.com/Website_Media/Zemana%20AntiLogger%20brochure.pdf</a></p>
-<p>原文摘录如下：</p>
+<p > 原文摘录如下：</p>
 <blockquote>
 <p>Pandora Sandbox<br>Each unknown file will be analyzed carefully in the cloud with Pandora<br>Technology before they execute on your PC. By using this technology on<br>your PC, any zero-day malware that wants to attack has no power!</p>
 </blockquote>
-<p>大意总结：</p>
+<p > 大意总结：</p>
 <blockquote>
-<p>当使用 Pandora 技术时，每一个未知的文件都会在运行前在云端被仔细分析</p>
+<p > 当使用 Pandora 技术时，每一个未知的文件都会在运行前在云端被仔细分析</p>
 </blockquote>
-<p>官网提供的反勒索测试报告</p>
+<p > 官网提供的反勒索测试报告</p>
 <p><a href="https://www.mrg-effitas.com/wp-content/uploads/2016/07/Zemana_ransomware_detection.pdf" target="_blank" rel="noopener">https://www.mrg-effitas.com/wp-content/uploads/2016/07/Zemana_ransomware_detection.pdf</a></p>
-<p>原文摘录如下：</p>
+<p > 原文摘录如下：</p>
 <blockquote>
 <p>Pandora works as a combination of cloud reputation database (blocking previously unknown files), and a cloud sandbox, where suspicious samples are sent to the cloud, and analyzed there. If a sample is detected as malicious, all Zemana users (even where Pandora is turned off) are protected in the future against that specific threat.</p>
 </blockquote>
-<p>大意总结：</p>
+<p > 大意总结：</p>
 <blockquote>
 <p>Pandora 是一个云信誉库和云沙盘的结合，可疑的样本将被发送到云端进行分析。如果样本有害，所有的 Zemana 用户将受到保护。</p>
 </blockquote>
-<p>结论：就是个没啥新意的云，名字起得不错</p>
-<h2 id="扫描器的本质"><a href="#扫描器的本质" class="headerlink" title="扫描器的本质"></a>扫描器的本质</h2><p>曾有人问我 Zemana 的主防怎么样，我不太确定如何回答，因为它根本没有主防。官方对自己的定位很明确，在语言文件中可以看到：</p>
+<p > 结论：就是个没啥新意的云，名字起得不错</p>
+<h2 id="扫描器的本质"><a href="# 扫描器的本质" class="headerlink" title="扫描器的本质"></a > 扫描器的本质</h2><p > 曾有人问我 Zemana 的主防怎么样，我不太确定如何回答，因为它根本没有主防。官方对自己的定位很明确，在语言文件中可以看到：</p>
 <blockquote>
 <p>%s is a second opinion cloud-based malware scanner</p>
 </blockquote>
-<p>正如官方所言，无论是 ZAM 还是 ZAL，其本质都是一个“基于云的作为第二选择的病毒扫描器”。</p>
-<h2 id="ID-Theft-Protection"><a href="#ID-Theft-Protection" class="headerlink" title="ID Theft Protection"></a>ID Theft Protection</h2><p>这个原翻译译作 “身份保护”，我称作“信息保护” 的东西，乍一看也很高大上，但实际上也不是什么新东西，就像 Pandora 一样。</p>
-<p>根据 ZAL 产品文档的描述，这个组件被分成三个功能部分：</p>
+<p > 正如官方所言，无论是 ZAM 还是 ZAL，其本质都是一个“基于云的作为第二选择的病毒扫描器”。</p>
+<h2 id="ID-Theft-Protection"><a href="#ID-Theft-Protection" class="headerlink" title="ID Theft Protection"></a>ID Theft Protection</h2><p > 这个原翻译译作 “身份保护”，我称作“信息保护” 的东西，乍一看也很高大上，但实际上也不是什么新东西，就像 Pandora 一样。</p>
+<p > 根据 ZAL 产品文档的描述，这个组件被分成三个功能部分：</p>
 <blockquote>
 <ul>
 <li>Secure SSL</li>
@@ -366,12 +422,12 @@ var _hmt = _hmt || [];
 <li>System Intrusion Protection</li>
 </ul>
 </blockquote>
-<p>前两个都不是很有趣，而最后一个 <code>System Intrusion Protection</code> 则看起来有点意思。在 ZAL 产品文档中，可以看到：</p>
+<p > 前两个都不是很有趣，而最后一个 <code>System Intrusion Protection</code> 则看起来有点意思。在 ZAL 产品文档中，可以看到：</p>
 <blockquote>
 <p>The AntiLogger’s System Defense module secures the very heart of your PC in a future proof way: it detects malicious attempts based purely upon their behavior, regardless of whether or not the malware attacking you has been identified, isolated, analyzed and your anti­virus product updated.</p>
 </blockquote>
-<p>其中对于系统防护模块的表述给人有种基于行为判断的主防的感觉，但实际使用过程中并没有让人感觉到明显的行为主防痕迹，目前有待进一步的测试。</p>
-<h2 id="剩下的"><a href="#剩下的" class="headerlink" title="剩下的"></a>剩下的</h2><p>什么？你还以为会有剩下的？要是还有剩下的内容的话，我想 Zemana 就会自己出白皮书大肆吹嘘了吧。。。</p>
+<p > 其中对于系统防护模块的表述给人有种基于行为判断的主防的感觉，但实际使用过程中并没有让人感觉到明显的行为主防痕迹，目前有待进一步的测试。</p>
+<h2 id="剩下的"><a href="# 剩下的" class="headerlink" title="剩下的"></a > 剩下的</h2><p > 什么？你还以为会有剩下的？要是还有剩下的内容的话，我想 Zemana 就会自己出白皮书大肆吹嘘了吧。。。</p>
 
             </div>
         
@@ -384,19 +440,19 @@ var _hmt = _hmt || [];
     
 <nav id="article-nav">
     
-        <a href="/post/zes-test/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/post/cf-true/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Zemana Endpoint Security (ZES) 简单测评
+                    正确地使用 Cloudflare 保护你的网站
                 
             </div>
         </a>
     
     
-        <a href="/post/vt-privacy/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/post/zes-test/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">关于 VirusTotal 隐私的几点讨论</div>
+            <div class="article-nav-title">Zemana Endpoint Security (ZES) 简单测评</div>
         </a>
     
 </nav>
@@ -429,9 +485,16 @@ var _hmt = _hmt || [];
             bobo liu &copy; 2018 
             <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
             <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
         </div>
     </div>
 </footer>
+
         
     
     <script>

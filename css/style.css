@@ -138,7 +138,7 @@ code {
   background-color: #f8f8f8;
 }
 .outer {
-  max-width: 1900px;
+  max-width: 2375px;
   margin: 0 auto;
   padding: 0 15px;
 }
@@ -185,16 +185,16 @@ code {
   #main {
     display: inline;
     float: left;
-    width: 73.42105263157895%;
-    margin: 0 0.789473684210526%;
+    width: 58.73684210526315%;
+    margin: 0 0.631578947368421%;
   }
 }
 @media screen and (min-width: 800px) and (max-width: 1199px) {
   #main {
     display: inline;
     float: left;
-    width: 63.421052631578945%;
-    margin: 0 0.789473684210526%;
+    width: 70.73684210526315%;
+    margin: 0 0.631578947368421%;
   }
 }
 @media screen and (min-width: 560px) and (max-width: 799px) {
@@ -647,8 +647,8 @@ code {
   max-width: 287px;
   display: inline;
   float: left;
-  width: 23.42105263157895%;
-  margin: 0 0.789473684210526%;
+  width: 18.736842105263158%;
+  margin: 0 0.631578947368421%;
   display: none;
 }
 @media screen and (min-width: 1200px) {
@@ -897,7 +897,6 @@ div.article-meta-button a:hover {
   background: #333;
 }
 .article-inner .article-meta {
-  line-height: 20px;
   background: #7b848c;
   margin: 0px -21px 20px -21px;
   padding: 0 20px;
@@ -918,6 +917,7 @@ div.article-meta-button a:hover {
 .article-entry {
   color: #565a5f;
   padding: 0 20px;
+  padding-left: 25px;
   line-height: 1.6em;
 }
 .article-entry:before,
@@ -951,7 +951,7 @@ div.article-meta-button a:hover {
 .article-entry h5 .headerlink,
 .article-entry h6 .headerlink {
   float: left;
-  margin-left: -20px;
+  margin-left: -16px;
   line-height: 1;
 }
 .article-entry h1 .headerlink::before,
@@ -1772,16 +1772,16 @@ ol.toc {
   #sidebar {
     display: inline;
     float: left;
-    width: 23.42105263157895%;
-    margin: 0 0.789473684210526%;
+    width: 18.736842105263158%;
+    margin: 0 0.631578947368421%;
   }
 }
 @media screen and (min-width: 800px) and (max-width: 1199px) {
   #sidebar {
     display: inline;
     float: left;
-    width: 33.421052631578945%;
-    margin: 0 0.789473684210526%;
+    width: 26.736842105263158%;
+    margin: 0 0.631578947368421%;
   }
 }
 .widget {

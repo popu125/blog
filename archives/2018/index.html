@@ -23,7 +23,7 @@
     
 
     
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/favicon.ico" />
     
 
     <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
@@ -43,19 +43,11 @@
     
     
     
-        <script>
-var _hmt = _hmt || [];
-(function() {
-    var hm = document.createElement("script");
-    hm.src = "//hm.baidu.com/hm.js?1817e24cd627962885057360855fa395";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();
-</script>
+
 
     
-
-
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
 </head>
 
 <body>
@@ -74,6 +66,16 @@ var _hmt = _hmt || [];
                     <a class="main-nav-link" href="/about">关于</a>
                 
             </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://www.gravatar.com/avatar/3090d6e8e88c88e82e916e0f20457ec9" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
             
             <div id="search-form-wrap">
 
@@ -136,6 +138,65 @@ var _hmt = _hmt || [];
 
         <div class="outer">
             
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://www.gravatar.com/avatar/3090d6e8e88c88e82e916e0f20457ec9?s=128" />
+            <h2 id="name">bobo liu</h2>
+            <h3 id="title">A simple boy.</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Everywhere</span>
+            <a id="follow" target="_blank" href="https://github.com/popu125/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                9
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                0
+                <span>tag</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/popu125/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="stack-overflow" class=tooltip>
+                            <i class="fa fa-stack-overflow"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="codepen" class=tooltip>
+                            <i class="fa fa-codepen"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
             
                 <aside id="sidebar">
    
@@ -158,16 +219,7 @@ var _hmt = _hmt || [];
                             &nbsp;
                             手记
                         </a>
-                         <ul class="unstyled" id="tree" > 
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            随想
-                        </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/vt-privacy/">关于 VirusTotal 隐私的几点讨论</a></li>  </ul> 
-                    </li> 
-                     <li class="file"><a href="/post/move-to-hugo/">博客折腾记 (迁移到 Hugo 和 Gitment)</a></li>  <li class="file"><a href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a></li>  <li class="file"><a href="/post/ransom/">自制勒索有感 & 技术简析</a></li>  <li class="file"><a href="/post/zes-test/">Zemana Endpoint Security (ZES) 简单测评</a></li>  <li class="file"><a href="/post/zemana-white-book/">Zemana 非官方技术白皮书</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/move-to-hugo/">博客折腾记 (迁移到 Hugo 和 Gitment)</a></li>  <li class="file"><a href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a></li>  <li class="file"><a href="/post/vt-privacy/">关于 VirusTotal 隐私的几点讨论</a></li>  <li class="file"><a href="/post/ransom/">自制勒索有感 & 技术简析</a></li>  <li class="file"><a href="/post/zemana-white-book/">Zemana 非官方技术白皮书</a></li>  <li class="file"><a href="/post/zes-test/">Zemana Endpoint Security (ZES) 简单测评</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -177,6 +229,15 @@ var _hmt = _hmt || [];
                             经验
                         </a>
                          <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/cf-true/">正确地使用 Cloudflare 保护你的网站</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            随感
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/post/miss-bd/">念念不忘，未见回响。-- 悼 BD</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/post/index/">Welcome to Note of bobo</a></li>  </ul> 
     </div>
@@ -253,21 +314,12 @@ var _hmt = _hmt || [];
             <ul>
                 
                     <li>
-                        <a class="link" href="https://qwq.moe/" title="一位大佬，真正的大佬">蚊子酱</a>
-                    </li>
-                
-                    <li>
-                        <a class="link" href="https://ylws.me/" title="望你在喝茶的美帝之路上不孤单">雨落无声</a>
-                    </li>
-                
-                    <li>
-                        <a class="link" href="https://benzi.moe/" title="Undefined.">Tomato</a>
+                        <a class="link" href="https://bobo.moe" title="A simple boy.">bobo</a>
                     </li>
                 
             </ul>
         </div>
     </div>
-
 
     
     <div id="toTop" class="fa fa-angle-up"></div>
@@ -279,6 +331,39 @@ var _hmt = _hmt || [];
                 <span class="node"><i class="fa fa-calendar-o"></i></span>
                 <h1 class="title"><a href="/archives/2018/">2018</a></h1>
             </div>
+    
+            <div class="timeline-row timeline-row-major">
+                <span class="node"><i class="fa fa-calendar"></i></span>
+                <h1 class="title"><a href="/archives/2018/05/">2018-05</a><span class="archive-list-count">2</span></h1>
+            </div>
+    
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
+                
+    
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/post/py-pic/">记一次对于 Py 图像库的蛋疼应用</a>
+        </h1>
+    
+
+                
+            </div>
+        </div>
+    
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
+                
+    
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/post/miss-bd/">念念不忘，未见回响。-- 悼 BD</a>
+        </h1>
+    
+
+                
+            </div>
+        </div>
     
             <div class="timeline-row timeline-row-major">
                 <span class="node"><i class="fa fa-calendar"></i></span>
@@ -296,20 +381,6 @@ var _hmt = _hmt || [];
     
 
                 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/post/index/">
-            <time datetime="2018-02-08T16:00:00.000Z" itemprop="datePublished">2018-02-09</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-                
             </div>
         </div>
     
@@ -322,9 +393,16 @@ var _hmt = _hmt || [];
             bobo liu &copy; 2018 
             <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
             <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
         </div>
     </div>
 </footer>
+
         
     
     <script>
